@@ -20,8 +20,8 @@ services:
     container_name: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mydb
+      POSTGRES_PASSWORD: myPassword
+      POSTGRES_DB: ansinhso
     ports:
       - "5432:5432"
     volumes:

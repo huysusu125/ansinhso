@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: ansinhso
+  profiles:
+#    active: prod
+    active: dev
+  threads:
+    virtual:
+      enabled: 'true'
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://ansinhso-huysusu125-56eb.g.aivencloud.com:16374/ansinhso?sslmode=require
+    username: avnadmin
+    password: AVNS_OmWZJk9ajlLS1syeifd
+    driver-class-name: org.postgresql.Driver
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs  # Đường dẫn truy cập file JSON cấu hình OpenAPI (Mặc định là /v3/api-docs)
+  swagger-ui:
+    path: /swagger-ui.html # Đường dẫn truy cập giao diện Swagger UI (Mặc định là /swagger-ui.html)
+    disable-swagger-default-url: true # Tắt URL mặc định nếu muốn
+openapi:
+  dev-url: http://localhost:8080
+  prod-url: https://api.ansinhso.com

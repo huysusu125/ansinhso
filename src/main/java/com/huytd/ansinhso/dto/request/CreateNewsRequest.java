@@ -31,6 +31,6 @@ public class CreateNewsRequest {
 
     @Schema(description = "Topic ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "Topic ID is required")
-    private Long topicId;
+    private String topicId;
 
 }

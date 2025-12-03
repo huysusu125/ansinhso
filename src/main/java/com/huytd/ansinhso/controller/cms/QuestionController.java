@@ -14,26 +14,25 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/cms-api/questions")
 @RequiredArgsConstructor
-@Tag(name = "Question Management", description = "API quản lý câu hỏi trắc nghiệm pháp luật")
+@Tag(name = "Question Management", description = "APIs for managing legal quiz questions")
 public class QuestionController {
 
     private final QuestionService questionService;
 
     @Operation(
-            summary = "Tạo câu hỏi mới",
-            description = "Tạo một câu hỏi trắc nghiệm mới với các đáp án. Ít nhất phải có một đáp án đúng."
+            summary = "Create a new question",
+            description = "Create a new multiple-choice question with options. At least one correct answer is required."
     )
     @io.swagger.v3.oas.annotations.responses.ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "201",
-                    description = "Tạo câu hỏi thành công",
+                    description = "Question created successfully",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = QuestionResponse.class)
@@ -41,19 +40,19 @@ public class QuestionController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "400",
-                    description = "Dữ liệu không hợp lệ",
+                    description = "Invalid input data",
                     content = @Content(mediaType = "application/json")
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
-                    description = "Lỗi server",
+                    description = "Internal server error",
                     content = @Content(mediaType = "application/json")
             )
     })
     @PostMapping
     public ResponseEntity<ApiResponse<QuestionResponse>> createQuestion(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Thông tin câu hỏi cần tạo",
+                    description = "Question information to create",
                     required = true
             )
             @Valid @RequestBody QuestionRequest request) {
@@ -63,13 +62,13 @@ public class QuestionController {
     }
 
     @Operation(
-            summary = "Cập nhật câu hỏi",
-            description = "Cập nhật thông tin câu hỏi theo ID. Có thể cập nhật một phần hoặc toàn bộ thông tin."
+            summary = "Update a question",
+            description = "Update question information by ID. Can update partial or full information."
     )
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "200",
-                    description = "Cập nhật thành công",
+                    description = "Question updated successfully",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = QuestionResponse.class)
@@ -77,22 +76,22 @@ public class QuestionController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "400",
-                    description = "Dữ liệu không hợp lệ",
+                    description = "Invalid input data",
                     content = @Content(mediaType = "application/json")
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "404",
-                    description = "Không tìm thấy câu hỏi",
+                    description = "Question not found",
                     content = @Content(mediaType = "application/json")
             )
     })
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<QuestionResponse>> updateQuestion(
-            @Parameter(description = "ID của câu hỏi cần cập nhật", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
+            @Parameter(description = "Question ID to update", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
             @PathVariable String id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Thông tin câu hỏi cần cập nhật",
+                    description = "Question information to update",
                     required = true,
                     content = @Content(schema = @Schema(implementation = QuestionRequest.class))
             )
@@ -103,24 +102,24 @@ public class QuestionController {
     }
 
     @Operation(
-            summary = "Xóa câu hỏi",
-            description = "Xóa vĩnh viễn câu hỏi và tất cả các đáp án liên quan theo ID"
+            summary = "Delete a question",
+            description = "Permanently delete a question and all related options by ID"
     )
     @io.swagger.v3.oas.annotations.responses.ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "200",
-                    description = "Xóa thành công",
+                    description = "Question deleted successfully",
                     content = @Content(mediaType = "application/json")
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "404",
-                    description = "Không tìm thấy câu hỏi",
+                    description = "Question not found",
                     content = @Content(mediaType = "application/json")
             )
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteQuestion(
-            @Parameter(description = "ID của câu hỏi cần xóa", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
+            @Parameter(description = "Question ID to delete", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
             @PathVariable String id) {
 
         questionService.deleteQuestion(id);
@@ -128,13 +127,13 @@ public class QuestionController {
     }
 
     @Operation(
-            summary = "Lấy chi tiết câu hỏi",
-            description = "Lấy thông tin chi tiết của một câu hỏi bao gồm tất cả các đáp án"
+            summary = "Get question details",
+            description = "Get detailed information of a question including all options"
     )
     @io.swagger.v3.oas.annotations.responses.ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "200",
-                    description = "Lấy thông tin thành công",
+                    description = "Question retrieved successfully",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = QuestionResponse.class)
@@ -142,13 +141,13 @@ public class QuestionController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "404",
-                    description = "Không tìm thấy câu hỏi",
+                    description = "Question not found",
                     content = @Content(mediaType = "application/json")
             )
     })
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<QuestionResponse>> getQuestionById(
-            @Parameter(description = "ID của câu hỏi cần lấy", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
+            @Parameter(description = "Question ID to retrieve", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
             @PathVariable String id) {
 
         QuestionResponse response = questionService.getQuestionById(id);
@@ -156,24 +155,24 @@ public class QuestionController {
     }
 
     @Operation(
-            summary = "Lấy danh sách câu hỏi",
-            description = "Lấy danh sách câu hỏi với các tùy chọn lọc, tìm kiếm, phân trang và sắp xếp. " +
-                    "Hỗ trợ lọc theo tags và tìm kiếm theo nội dung câu hỏi."
+            summary = "Get list of questions",
+            description = "Get list of questions with filtering, searching, pagination and sorting options. " +
+                    "Supports filtering by tags and searching by question content."
     )
     @io.swagger.v3.oas.annotations.responses.ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "200",
-                    description = "Lấy danh sách thành công"
+                    description = "Questions retrieved successfully"
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "400",
-                    description = "Tham số không hợp lệ",
+                    description = "Invalid parameters",
                     content = @Content(mediaType = "application/json")
             )
     })
     @GetMapping
     public ResponseEntity<ApiResponse<ListResponse<QuestionListResponse>>> getQuestions(
-            @Parameter(description = "Tìm kiếm theo nội dung câu hỏi", example = "Hiến pháp")
+            @Parameter(description = "Search by question content", example = "Constitution")
             @RequestParam(required = false) String search) {
 
         ListResponse<QuestionListResponse> response = questionService.getQuestions(search);

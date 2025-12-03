@@ -10,14 +10,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin chi tiết câu hỏi")
+@Schema(description = "Question detailed information")
 public class QuestionResponse {
-    @Schema(description = "ID của câu hỏi", example = "123e4567-e89b-12d3-a456-426614174000")
+    @Schema(description = "Question ID", example = "123e4567-e89b-12d3-a456-426614174000")
     private String id;
 
-    @Schema(description = "Nội dung câu hỏi", example = "Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam được thông qua năm nào?")
+    @Schema(description = "Question content", example = "In which year was the Constitution of the Socialist Republic of Vietnam adopted?")
     private String content;
 
-    @Schema(description = "Danh sách các đáp án")
+    @Schema(description = "List of answer options")
     private List<OptionResponse> options;
 }

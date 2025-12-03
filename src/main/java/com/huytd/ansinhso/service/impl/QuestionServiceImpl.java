@@ -4,6 +4,8 @@ import com.huytd.ansinhso.dto.request.QuestionRequest;
 import com.huytd.ansinhso.dto.response.ListResponse;
 import com.huytd.ansinhso.dto.response.QuestionListResponse;
 import com.huytd.ansinhso.dto.response.QuestionResponse;
+import com.huytd.ansinhso.entity.Question;
+import com.huytd.ansinhso.entity.QuestionOption;
 import com.huytd.ansinhso.mapper.QuestionMapper;
 import com.huytd.ansinhso.repository.QuestionOptionRepository;
 import com.huytd.ansinhso.repository.QuestionRepository;
@@ -11,6 +13,8 @@ import com.huytd.ansinhso.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,22 +35,20 @@ public class QuestionServiceImpl implements QuestionService {
         Question savedQuestion = questionRepository.save(question);
 
         // Tạo các đáp án
-        if (request.getOptions() != null && !request.getOptions().isEmpty()) {
-            List<QuestionOption> options = request.getOptions().stream()
-                    .map(optionRequest -> {
-                        QuestionOption option = new QuestionOption();
-                        option.setContent(optionRequest.getContent());
-                        option.setCorrect(optionRequest.isCorrect());
-                        option.setQuestion(savedQuestion);
-                        return option;
-                    })
-                    .toList();
+        List<QuestionOption> options = request.getOptions().stream()
+                .map(optionRequest -> {
+                    QuestionOption option = new QuestionOption();
+                    option.setContent(optionRequest.getContent());
+                    option.setCorrect(optionRequest.getIsCorrect());
+                    option.setQuestionId(savedQuestion.getId());
+                    return option;
+                })
+                .toList();
 
-            questionOptionRepository.saveAll(options);
-            savedQuestion.setOptions(options);
-        }
+        questionOptionRepository.saveAll(options);
 
-        return questionMapper.toResponse(savedQuestion);
+
+        return questionMapper.toResponse(savedQuestion, options);
     }
 
     @Override

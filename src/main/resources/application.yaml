@@ -1,9 +1,8 @@
+server:
+  port: 8081
 spring:
   application:
     name: ansinhso
-  profiles:
-#    active: prod
-    active: dev
   threads:
     virtual:
       enabled: 'true'
@@ -11,9 +10,9 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://ansinhso-huysusu125-56eb.g.aivencloud.com:16374/ansinhso?sslmode=require
-    username: avnadmin
-    password: AVNS_OmWZJk9ajlLS1syeifd
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/ansinhso}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:myPassword}
     driver-class-name: org.postgresql.Driver
 
 springdoc:
@@ -23,5 +22,11 @@ springdoc:
     path: /swagger-ui.html # Đường dẫn truy cập giao diện Swagger UI (Mặc định là /swagger-ui.html)
     disable-swagger-default-url: true # Tắt URL mặc định nếu muốn
 openapi:
-  dev-url: http://localhost:8080
-  prod-url: https://api.ansinhso.com
+  dev-url: http://localhost:8081
+  prod-url: https://api-ansinhso.personal-huytd.io.vn
+
+minio:
+  url: ${MINIO_URL:https://cdn-ansinhso.personal-huytd.io.vn}
+  accessKey: ${MINIO_ACCESS_KEY:minioadmin}
+  secretKey: ${MINIO_SECRET_KEY:minioadmin}
+  bucketName: ${MINIO_BUCKET:my-bucket}

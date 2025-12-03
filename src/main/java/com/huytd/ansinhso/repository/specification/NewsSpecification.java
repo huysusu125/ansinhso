@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NewsSpecification {
 
-    public static Specification<News> withFilters(String title, Long topicId, NewsStatus status) {
+    public static Specification<News> withFilters(String title, String topicId, NewsStatus status) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

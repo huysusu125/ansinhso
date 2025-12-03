@@ -1,6 +1,5 @@
 package com.huytd.ansinhso.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -10,15 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "question")
+@Table(name = "file_manager")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class Question  extends BaseEntity{
-
-    @Column(name = "content")
-    private String content;
-
+public class FileManager extends BaseEntity{
+    private String path;
 }

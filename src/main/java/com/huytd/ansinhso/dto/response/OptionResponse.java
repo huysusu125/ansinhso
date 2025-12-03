@@ -8,18 +8,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin đáp án")
+@Schema(description = "Answer option information")
 public class OptionResponse {
-
-    @Schema(description = "ID của đáp án trong database", example = "opt_123456")
+    @Schema(description = "Option ID", example = "123e4567-e89b-12d3-a456-426614174000")
     private String id;
 
-    @Schema(description = "ID hiển thị của đáp án (A, B, C, D, ...)", example = "A")
-    private String optionId;
-
-    @Schema(description = "Nội dung đáp án", example = "2013")
+    @Schema(description = "Option content", example = "1992")
     private String content;
 
-    @Schema(description = "Đáp án có đúng hay không", example = "true")
-    private Boolean isCorrect;
+    @Schema(description = "Is this the correct answer?", example = "true")
+    private boolean isCorrect;
 }

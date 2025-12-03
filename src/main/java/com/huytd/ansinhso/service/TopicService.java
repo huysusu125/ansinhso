@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface TopicService {
     TopicResponse createTopic(CreateTopicRequest request);
-    TopicResponse updateTopic(Long id, UpdateTopicRequest request);
-    void deleteTopic(Long id);
-    TopicResponse getTopicById(Long id);
+    TopicResponse updateTopic(String id, UpdateTopicRequest request);
+    void deleteTopic(String id);
+    TopicResponse getTopicById(String id);
     List<TopicResponse> getAllTopics();
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Request body for updating an existing topic")
 public class UpdateTopicRequest {
 
-    @Schema(description = "Topic name", example = "Sports", required = true)
+    @Schema(description = "Topic name", example = "Sports", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "Topic name is required")
     @Size(min = 2, max = 255, message = "Topic name must be between 2 and 255 characters")
     private String name;

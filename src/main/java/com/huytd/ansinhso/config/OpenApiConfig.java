@@ -23,8 +23,24 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("public-api")
-                .pathsToMatch("/api/**")
+                .group("Common")
+                .pathsToMatch("/public-api/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi cmsApi() {
+        return GroupedOpenApi.builder()
+                .group("Cms")
+                .pathsToMatch("/cms-api/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi appApi() {
+        return GroupedOpenApi.builder()
+                .group("App")
+                .pathsToMatch("/app-api/**")
                 .build();
     }
 

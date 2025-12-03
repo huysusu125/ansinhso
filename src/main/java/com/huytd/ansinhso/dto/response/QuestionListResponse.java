@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin tóm tắt câu hỏi (dùng cho danh sách)")
+@Schema(description = "Question summary information (used for list view)")
 public class QuestionListResponse {
-    @Schema(description = "ID của câu hỏi", example = "123e4567-e89b-12d3-a456-426614174000")
+    @Schema(description = "Question ID", example = "123e4567-e89b-12d3-a456-426614174000")
     private String id;
 
-    @Schema(description = "Nội dung câu hỏi", example = "Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam được thông qua năm nào?")
+    @Schema(description = "Question content", example = "In which year was the Constitution of the Socialist Republic of Vietnam adopted?")
     private String content;
 }

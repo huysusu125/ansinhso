@@ -69,7 +69,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public NewsDetailResponse updateNews(Long id, UpdateNewsRequest request) {
+    public NewsDetailResponse updateNews(String id, UpdateNewsRequest request) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -103,7 +103,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public void deleteNews(Long id) {
+    public void deleteNews(String id) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -118,7 +118,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional(readOnly = true)
-    public NewsDetailResponse getNewsById(Long id) {
+    public NewsDetailResponse getNewsById(String id) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -146,7 +146,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional(readOnly = true)
-    public ListResponse<NewsListResponse> getAllNews(String title, Long topicId, NewsStatus status, Integer page, Integer size) {
+    public ListResponse<NewsListResponse> getAllNews(String title, String topicId, NewsStatus status, Integer page, Integer size) {
         Sort sort = Sort.by(
                 Sort.Order.desc("isPinned"),
                 Sort.Order.desc("createdAt")
@@ -159,7 +159,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public NewsDetailResponse publishNews(Long id) {
+    public NewsDetailResponse publishNews(String id) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -180,7 +180,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public NewsDetailResponse unpublishNews(Long id) {
+    public NewsDetailResponse unpublishNews(String id) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -198,7 +198,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public NewsDetailResponse pinNews(Long id) {
+    public NewsDetailResponse pinNews(String id) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -216,7 +216,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public NewsDetailResponse unpinNews(Long id) {
+    public NewsDetailResponse unpinNews(String id) {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
@@ -239,13 +239,13 @@ public class NewsServiceImpl implements NewsService {
         }
 
         // Get all unique topic IDs
-        List<Long> topicIds = newsList.stream()
+        List<String> topicIds = newsList.stream()
                 .map(News::getTopicId)
                 .distinct()
                 .collect(Collectors.toList());
 
         // Fetch all topics in one query
-        Map<Long, String> topicNamesMap = topicRepository.findAllById(topicIds).stream()
+        Map<String, String> topicNamesMap = topicRepository.findAllById(topicIds).stream()
                 .collect(Collectors.toMap(Topic::getId, Topic::getName));
 
         // Map to response with topic names

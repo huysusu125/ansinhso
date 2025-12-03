@@ -27,7 +27,23 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
-
+  backend:
+    image: be-ansinhso
+    container_name: be-ansinhso
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:mysql://postgres:5432/ansinhso
+      DB_USERNAME: postgres
+      DB_PASSWORD: myPassword
+      DB_PORT: 5432
+      MINIO_URL: https://cdn-ansinhso.personal-huytd.io.vn
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    depends_on:
+      - mysql-database
+      - minio
+    restart: unless-stopped
 volumes:
   minio_data:
   postgres_data:

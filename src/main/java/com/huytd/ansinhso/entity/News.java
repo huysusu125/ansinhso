@@ -2,16 +2,13 @@ package com.huytd.ansinhso.entity;
 
 import com.huytd.ansinhso.constant.NewsStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "news")
+@Table(name = "new")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,18 +26,21 @@ public class News extends BaseEntity {
     private String thumbnailUrl;
 
     @Column(name = "topic_id")
-    private Long topicId;
+    private String topicId;
 
     @Column(name = "is_pinned")
+    @Builder.Default
     private Boolean isPinned = false;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private NewsStatus status;
+    @Builder.Default
+    private NewsStatus status = NewsStatus.DRAFT;
 
     @Column(name = "publish_at")
     private Timestamp publishAt;
 
     @Column(name = "views")
+    @Builder.Default
     private Long views = 0L;
 }

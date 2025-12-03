@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "news_content")
+@Table(name = "new_content")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 public class NewsContent extends BaseEntity {
 
     @Column(name = "news_id")
-    private Long newsId;
+    private String newsId;
 
     @Column(name = "content", nullable = false)
     private String content;

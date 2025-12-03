@@ -40,7 +40,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     @Transactional
-    public TopicResponse updateTopic(Long id, UpdateTopicRequest request) {
+    public TopicResponse updateTopic(String id, UpdateTopicRequest request) {
         Topic topic = topicRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Topic not found with id: " + id
@@ -59,7 +59,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     @Transactional
-    public void deleteTopic(Long id) {
+    public void deleteTopic(String id) {
         Topic topic = topicRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Topic not found with id: " + id
@@ -77,7 +77,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     @Transactional(readOnly = true)
-    public TopicResponse getTopicById(Long id) {
+    public TopicResponse getTopicById(String id) {
         Topic topic = topicRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Topic not found with id: " + id

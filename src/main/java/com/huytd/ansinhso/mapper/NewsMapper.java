@@ -23,6 +23,7 @@ public interface NewsMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "publishAt", ignore = true)
     News toEntity(CreateNewsRequest request);
 
     @Mapping(target = "id", ignore = true)
@@ -33,6 +34,7 @@ public interface NewsMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "publishAt", ignore = true)
     void updateEntityFromRequest(UpdateNewsRequest request, @MappingTarget News news);
 
     @Mapping(target = "topicName", ignore = true)

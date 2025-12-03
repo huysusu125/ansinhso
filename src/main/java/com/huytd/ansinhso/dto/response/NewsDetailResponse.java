@@ -34,7 +34,7 @@ public class NewsDetailResponse {
     private String topicName;
 
     @Schema(description = "Is pinned", example = "false")
-    private Boolean isPinned;
+    private boolean isPinned;
 
     @Schema(description = "Status (DRAFT/PUBLISHED)", example = "PUBLISHED")
     private NewsStatus status;

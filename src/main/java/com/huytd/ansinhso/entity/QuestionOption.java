@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "question_option")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,12 +21,12 @@ public class QuestionOption extends BaseEntity {
     @Column(name = "question_id")
     private String questionId;
 
-    @Column(nullable = false)
+    @Column(name = "option_id")
     private String optionId;
 
-    @Column(nullable = false)
+    @Column(name = "content")
     private String content;
 
-    @Column(nullable = false)
+    @Column(name = "is_correct")
     private boolean isCorrect = false;
 }

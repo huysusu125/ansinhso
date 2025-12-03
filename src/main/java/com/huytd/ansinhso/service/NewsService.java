@@ -9,12 +9,12 @@ import com.huytd.ansinhso.dto.response.NewsListResponse;
 
 public interface NewsService {
     NewsDetailResponse createNews(CreateNewsRequest request);
-    NewsDetailResponse updateNews(Long id, UpdateNewsRequest request);
-    void deleteNews(Long id);
-    NewsDetailResponse getNewsById(Long id);
-    ListResponse<NewsListResponse> getAllNews(String title, Long topicId, NewsStatus status, Integer page, Integer size);
-    NewsDetailResponse publishNews(Long id);
-    NewsDetailResponse unpublishNews(Long id);
-    NewsDetailResponse pinNews(Long id);
-    NewsDetailResponse unpinNews(Long id);
+    NewsDetailResponse updateNews(String id, UpdateNewsRequest request);
+    void deleteNews(String id);
+    NewsDetailResponse getNewsById(String id);
+    ListResponse<NewsListResponse> getAllNews(String title, String topicId, NewsStatus status, Integer page, Integer size);
+    NewsDetailResponse publishNews(String id);
+    NewsDetailResponse unpublishNews(String id);
+    NewsDetailResponse pinNews(String id);
+    NewsDetailResponse unpinNews(String id);
 }

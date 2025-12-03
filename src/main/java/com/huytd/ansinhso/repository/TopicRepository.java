@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface TopicRepository extends JpaRepository<Topic, Long> {
+public interface TopicRepository extends JpaRepository<Topic, String> {
     boolean existsByName(String name);
-    boolean existsByNameAndIdNot(String name, Long id);
+    boolean existsByNameAndIdNot(String name, String id);
     Optional<Topic> findByName(String name);
 }

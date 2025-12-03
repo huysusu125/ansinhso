@@ -24,8 +24,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    protected String id;
 
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)

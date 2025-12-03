@@ -41,7 +41,7 @@ services:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
     depends_on:
-      - mysql-database
+      - postgres
       - minio
     restart: unless-stopped
 volumes:

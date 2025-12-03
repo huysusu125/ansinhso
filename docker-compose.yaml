@@ -37,6 +37,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: myPassword
       DB_PORT: 5432
+      PORT: 8081
       MINIO_URL: https://cdn-ansinhso.personal-huytd.io.vn
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin

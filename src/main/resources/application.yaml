@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: ${PORT:8080}
 spring:
   application:
     name: ansinhso
@@ -22,7 +22,7 @@ springdoc:
     path: /swagger-ui.html # Đường dẫn truy cập giao diện Swagger UI (Mặc định là /swagger-ui.html)
     disable-swagger-default-url: true # Tắt URL mặc định nếu muốn
 openapi:
-  dev-url: http://localhost:8081
+  dev-url: http://localhost:8080
   prod-url: https://api-ansinhso.personal-huytd.io.vn
 
 minio:

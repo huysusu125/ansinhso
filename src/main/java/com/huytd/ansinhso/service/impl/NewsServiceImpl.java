@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -170,7 +171,7 @@ public class NewsServiceImpl implements NewsService {
         }
 
         news.setStatus(NewsStatus.PUBLISHED);
-        if (news.getPublishAt() == null) {
+        if (Objects.isNull(news.getPublishAt())) {
             news.setPublishAt(new Timestamp(System.currentTimeMillis()));
         }
 

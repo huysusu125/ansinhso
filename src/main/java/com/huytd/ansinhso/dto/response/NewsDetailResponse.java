@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 public class NewsDetailResponse {
 
     @Schema(description = "News ID", example = "1")
-    private Long id;
+    private String id;
 
     @Schema(description = "News title", example = "Breaking: New Technology Unveiled")
     private String title;
@@ -28,7 +28,7 @@ public class NewsDetailResponse {
     private String thumbnailUrl;
 
     @Schema(description = "Topic ID", example = "1")
-    private Long topicId;
+    private String topicId;
 
     @Schema(description = "Topic name", example = "Technology")
     private String topicName;

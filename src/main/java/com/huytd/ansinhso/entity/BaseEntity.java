@@ -28,7 +28,7 @@ public abstract class BaseEntity {
     protected String id;
 
     @CreatedBy
-    @Column(name = "created_by", nullable = false, updatable = false)
+    @Column(name = "created_by")
     protected String createdBy;
 
     @LastModifiedBy
@@ -36,7 +36,7 @@ public abstract class BaseEntity {
     protected String updatedBy;
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at")
     protected Timestamp createdAt;
 
     @LastModifiedDate

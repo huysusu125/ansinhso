@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class NewsListResponse {
 
     @Schema(description = "News ID", example = "1")
-    private Long id;
+    private String id;
 
     @Schema(description = "News title", example = "Breaking: New Technology Unveiled")
     private String title;

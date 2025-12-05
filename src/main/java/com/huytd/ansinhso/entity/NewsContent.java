@@ -21,6 +21,6 @@ public class NewsContent extends BaseEntity {
     @Column(name = "news_id")
     private String newsId;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content")
     private String content;
 }

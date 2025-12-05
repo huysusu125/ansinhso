@@ -48,3 +48,5 @@ services:
 volumes:
   minio_data:
   postgres_data:
+
+#docker build -t be-ansinhso .

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @EqualsAndHashCode(callSuper = true)
 public class News extends BaseEntity {
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
 
     @Column(name = "summary")
@@ -33,7 +33,7 @@ public class News extends BaseEntity {
     private Boolean isPinned = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     @Builder.Default
     private NewsStatus status = NewsStatus.DRAFT;
 

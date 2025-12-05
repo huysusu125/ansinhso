@@ -9,8 +9,8 @@ import lombok.Data;
 @Schema(description = "Topic information response")
 public class TopicResponse {
 
-    @Schema(description = "Topic ID", example = "1")
-    private Long id;
+    @Schema(description = "Topic ID", example = "123fsdfsdf")
+    private String id;
 
     @Schema(description = "Topic name", example = "Technology")
     private String name;

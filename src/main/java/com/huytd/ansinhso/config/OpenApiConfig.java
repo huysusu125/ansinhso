@@ -1,5 +1,6 @@
 package com.huytd.ansinhso.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -9,8 +10,10 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import java.util.List;
+
 @Configuration
 public class OpenApiConfig {
 
@@ -19,7 +22,7 @@ public class OpenApiConfig {
 
     @Value("${openapi.prod-url:https://api.ansinhso.com}")
     private String prodUrl;
-
+    private static final String SECURITY_SCHEME_NAME = "Bearer Authentication";
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
@@ -71,9 +74,22 @@ public class OpenApiConfig {
                         "This API provides endpoints for managing topics and news articles.")
                 .termsOfService("https://www.ansinhso.com/terms")
                 .license(mitLicense);
+        // Cấu hình JWT Security Scheme
+        SecurityScheme securityScheme = new SecurityScheme()
+                .name(SECURITY_SCHEME_NAME)
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .in(SecurityScheme.In.HEADER)
+                .description("Enter JWT token");
 
+        // Thêm security requirement
+        SecurityRequirement securityRequirement = new SecurityRequirement()
+                .addList(SECURITY_SCHEME_NAME);
         return new OpenAPI()
                 .info(info)
-                .servers(List.of(devServer, prodServer));
+                .servers(List.of(devServer, prodServer))
+                .components(new Components().addSecuritySchemes(SECURITY_SCHEME_NAME, securityScheme))
+                .addSecurityItem(securityRequirement);
     }
 }

@@ -30,3 +30,8 @@ minio:
   accessKey: ${MINIO_ACCESS_KEY:minioadmin}
   secretKey: ${MINIO_SECRET_KEY:minioadmin}
   bucketName: ${MINIO_BUCKET:my-bucket}
+
+jwt:
+  secret: ${JWT_SECRET:your-very-secure-secret-key-at-least-256-bits-long-for-hs256-algorithm}
+  expiration: 86400000 # 24 hours in milliseconds
+  refresh-expiration: 604800000 # 7 days in milliseconds

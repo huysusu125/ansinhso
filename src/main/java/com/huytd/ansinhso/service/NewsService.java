@@ -17,4 +17,7 @@ public interface NewsService {
     NewsDetailResponse unpublishNews(String id);
     NewsDetailResponse pinNews(String id);
     NewsDetailResponse unpinNews(String id);
+    NewsDetailResponse getNewsPublishById(String id);
+
+    ListResponse<NewsListResponse> getAllNewsPublish(String title, String topicId, Integer page, Integer size);
 }

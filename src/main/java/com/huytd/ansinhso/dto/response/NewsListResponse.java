@@ -24,7 +24,7 @@ public class NewsListResponse {
     private String thumbnailUrl;
 
     @Schema(description = "Topic ID", example = "1")
-    private Long topicId;
+    private String topicId;
 
     @Schema(description = "Topic name", example = "Technology")
     private String topicName;

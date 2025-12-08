@@ -1,8 +1,9 @@
-package com.huytd.ansinhso.service;
+package com.huytd.ansinhso.service.impl;
 
 import com.huytd.ansinhso.config.MinioConfig;
 import com.huytd.ansinhso.entity.FileManager;
 import com.huytd.ansinhso.repository.FileManagerRepository;
+import com.huytd.ansinhso.service.FileManagerService;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;

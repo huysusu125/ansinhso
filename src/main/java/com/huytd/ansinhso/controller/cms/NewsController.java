@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController("cmsNewsController")
 @RequestMapping("/cms-api/news")
 @RequiredArgsConstructor
 @Tag(name = "News Management", description = "APIs for managing news articles")
@@ -51,6 +51,7 @@ public class NewsController {
                 ApiResponse.success("News created successfully", response));
     }
 
+    @Operation(summary = "Update a news article", description = "Update a news article by its ID.")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<NewsDetailResponse>> updateNews(
             @Parameter(description = "News ID", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
@@ -61,6 +62,7 @@ public class NewsController {
                 ApiResponse.success("News updated successfully", response));
     }
 
+    @Operation(summary = "Delete a news article", description = "Delete a news article by its ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteNews(
             @Parameter(description = "News ID", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
@@ -70,6 +72,7 @@ public class NewsController {
                 ApiResponse.success("News deleted successfully", null));
     }
 
+    @Operation(summary = "Get a news article by ID", description = "Get a news article by its ID.")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<NewsDetailResponse>> getNewsById(
             @Parameter(description = "News ID", required = true, example = "123e4567-e89b-12d3-a456-426614174000")

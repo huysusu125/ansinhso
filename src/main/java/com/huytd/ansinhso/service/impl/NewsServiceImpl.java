@@ -125,24 +125,7 @@ public class NewsServiceImpl implements NewsService {
                         "News not found with id: " + id
                 ));
 
-        // Get content
-        NewsContent newsContent = newsContentRepository.findByNewsId(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "News content not found for news id: " + id
-                ));
-
-        // Get topic name
-        Topic topic = topicRepository.findById(news.getTopicId())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Topic not found with id: " + news.getTopicId()
-                ));
-
-        // Build response
-        NewsDetailResponse response = newsMapper.toDetailResponse(news);
-        response.setContent(newsContent.getContent());
-        response.setTopicName(topic.getName());
-
-        return response;
+        return buildDetailResponse(news);
     }
 
     @Override
@@ -231,6 +214,27 @@ public class NewsServiceImpl implements NewsService {
         News unpinnedNews = newsRepository.save(news);
 
         return buildDetailResponse(unpinnedNews);
+    }
+
+    @Override
+    @Transactional
+    public NewsDetailResponse getNewsPublishById(String id) {
+        News news = newsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "News not found with id: " + id
+                ));
+        if (!NewsStatus.PUBLISHED.equals(news.getStatus())) {
+            throw new BusinessException("News is not published with id: " + id);
+        }
+        news.setViews(news.getViews() + 1);
+        newsRepository.save(news);
+        return buildDetailResponse(news);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ListResponse<NewsListResponse> getAllNewsPublish(String title, String topicId, Integer page, Integer size) {
+        return this.getAllNews(title, topicId, NewsStatus.PUBLISHED, page, size);
     }
 
     // Helper method: Enrich a news list with topic names

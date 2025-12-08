@@ -34,9 +34,9 @@ public class MinioService implements FileManagerService {
                             .contentType(file.getContentType())
                             .build()
             );
-            fileManagerRepository.save(FileManager.builder().path(fileName).build());
+            fileManagerRepository.save(FileManager.builder().path("/" + minioConfig.getBucketName() + "/" + fileName).build());
             log.info("Uploaded file successfully to MinIO: {}", fileName);
-            return minioConfig.getMinioUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+            return "/" + minioConfig.getBucketName() + "/" + fileName;
         } catch (Exception e) {
             throw new RuntimeException("Error uploading file to MinIO", e);
         }

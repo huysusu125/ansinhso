@@ -133,7 +133,7 @@ public class NewsServiceImpl implements NewsService {
     public ListResponse<NewsListResponse> getAllNews(String title, String topicId, NewsStatus status, Integer page, Integer size) {
         Sort sort = Sort.by(
                 Sort.Order.desc("isPinned"),
-                Sort.Order.desc("createdAt")
+                Sort.Order.desc("updatedAt")
         );
 
         Specification<News> spec = NewsSpecification.withFilters(title, topicId, status);

@@ -7,7 +7,6 @@ import com.huytd.ansinhso.service.CitizenFeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,20 +30,9 @@ public class CitizenFeedbackController {
     })
     @PostMapping("/submit")
     public ResponseEntity<ApiResponse<CitizenFeedbackResponse>> submitFeedback(
-            @Valid @RequestBody CitizenFeedbackRequest request,
-            HttpServletRequest httpRequest) {
+            @Valid @RequestBody CitizenFeedbackRequest request) {
 
-        String ipAddress = getClientIpAddress(httpRequest);
-        CitizenFeedbackResponse response = feedbackService.submitFeedback(request, ipAddress);
-
+        CitizenFeedbackResponse response = feedbackService.submitFeedback(request);
         return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    private String getClientIpAddress(HttpServletRequest request) {
-        String xForwardedFor = request.getHeader("X-Forwarded-For");
-        if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
-            return xForwardedFor.split(",")[0].trim();
-        }
-        return request.getRemoteAddr();
     }
 }

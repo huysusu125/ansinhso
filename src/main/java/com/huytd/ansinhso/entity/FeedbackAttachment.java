@@ -6,19 +6,26 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "topic")
+@Table(name = "feedback_attachment")
 @Data
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-@SuperBuilder(toBuilder = true)
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-public class Topic extends BaseEntity {
+public class FeedbackAttachment extends BaseEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "feedback_id")
+    private String feedbackId;
+
+    @Column(name = "url")
+    private String url;
 
 }

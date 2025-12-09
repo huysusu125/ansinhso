@@ -15,7 +15,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface NewsMapper {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "isPinned", constant = "false")
     @Mapping(target = "status", constant = "DRAFT")
     @Mapping(target = "views", constant = "0L")
@@ -23,6 +22,7 @@ public interface NewsMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "publishAt", ignore = true)
     News toEntity(CreateNewsRequest request);
 

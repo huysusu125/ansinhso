@@ -7,7 +7,12 @@ import com.huytd.ansinhso.dto.response.QuestionListResponse;
 import com.huytd.ansinhso.dto.response.QuestionResponse;
 import com.huytd.ansinhso.entity.Question;
 import com.huytd.ansinhso.entity.QuestionOption;
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 

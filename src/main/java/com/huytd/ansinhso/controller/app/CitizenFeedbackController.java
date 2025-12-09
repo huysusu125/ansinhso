@@ -16,17 +16,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("appCitizenFeedbackController")
-@RequestMapping("/app-api/news")
+@RequestMapping("/app-api/feedback")
 @RequiredArgsConstructor
-@Tag(name = "", description = "")
+@Tag(
+        name = "Citizen Feedback",
+        description = "APIs for citizens to submit and manage feedback"
+)
 public class CitizenFeedbackController {
 
     private final CitizenFeedbackService feedbackService;
 
-    @Operation(summary = "Submit feedback", description = "Người dân gửi ý kiến phản ánh")
+    @Operation(
+            summary = "Submit feedback",
+            description = "Allows a citizen to submit a feedback report"
+    )
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Gửi phản ánh thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Feedback submitted successfully"
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid request data"
+            )
     })
     @PostMapping("/submit")
     public ResponseEntity<ApiResponse<CitizenFeedbackResponse>> submitFeedback(

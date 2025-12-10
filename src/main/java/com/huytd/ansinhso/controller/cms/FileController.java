@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/cms-api/file")
+@RequestMapping({"/cms-api/file", "/app-api/file"})
 @RequiredArgsConstructor
-@Tag(name = "Upload file", description = "APIs upload file for news")
+@Tag(name = "Upload file", description = "APIs upload file common system")
 public class FileController {
 
     private final FileManagerService fileManagerService;

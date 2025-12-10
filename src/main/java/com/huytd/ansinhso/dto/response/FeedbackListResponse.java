@@ -1,5 +1,6 @@
 package com.huytd.ansinhso.dto.response;
 
+import com.huytd.ansinhso.constant.FeedbackStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class FeedbackListResponse {
 
     @Schema(description = "Title of the feedback", example = "Environmental pollution near residential area")
     private String title;
+
+    @Schema(description = "Current status of the feedback", example = "PENDING")
+    private FeedbackStatus status;
 
     @Schema(description = "Short content or summary of the feedback", example = "There is waste being dumped near my neighborhood...")
     private String content;

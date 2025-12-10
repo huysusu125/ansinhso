@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 @Builder
 @Schema(
@@ -36,4 +38,8 @@ public class FeedbackListResponse {
 
     @Schema(description = "Feedback category", example = "Environmental sanitation violation")
     private String category;
+
+    @Schema(description = "Feedback time created", example = "123456 ")
+    private Timestamp createdAt;
+
 }

@@ -18,4 +18,6 @@ public interface CitizenFeedbackService {
     CitizenFeedbackResponse resolveFeedback(String id);
 
     CitizenFeedbackResponse rejectFeedback(String id);
+
+    ListResponse<FeedbackListResponse> getAllFeedback(Integer page, Integer size);
 }

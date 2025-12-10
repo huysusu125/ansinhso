@@ -5,6 +5,7 @@ import com.huytd.ansinhso.dto.request.CitizenFeedbackRequest;
 import com.huytd.ansinhso.dto.response.CitizenFeedbackResponse;
 import com.huytd.ansinhso.dto.response.FeedbackListResponse;
 import com.huytd.ansinhso.dto.response.ListResponse;
+import com.huytd.ansinhso.entity.Customer;
 import com.huytd.ansinhso.entity.Feedback;
 import com.huytd.ansinhso.entity.FeedbackAttachment;
 import com.huytd.ansinhso.exception.BusinessException;
@@ -16,10 +17,12 @@ import com.huytd.ansinhso.repository.specification.FeedbackSpecification;
 import com.huytd.ansinhso.service.CitizenFeedbackService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -139,4 +142,32 @@ public class CitizenFeedbackServiceImpl implements CitizenFeedbackService {
             }
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ListResponse<FeedbackListResponse> getAllFeedback(Integer page, Integer size) {
+        String phoneNumber = getCustomerSessionZalo();
+        if (StringUtils.isBlank(phoneNumber)) {
+            return ListResponse.of(List.of(), 0L);
+        }
+        Sort sort = Sort.by(
+                Sort.Order.desc("updatedAt")
+        );
+        Page<Feedback> feedbacks = feedbackRepository.findAllByCreatedBy(phoneNumber, PageRequest.of(page, size, sort));
+        return ListResponse.of(feedbackMapper.toFeedbackListResponse(feedbacks.getContent()), feedbacks.getTotalElements());
+    }
+
+    private String getCustomerSessionZalo() {
+        try {
+            Customer customer = (Customer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (customer == null) {
+                return null;
+            }
+            return customer.getPhoneNumber();
+        } catch (Exception e) {
+            log.warn("Cannot get customer from authentication {}", e.getMessage());
+            return null;
+        }
+    }
+
 }

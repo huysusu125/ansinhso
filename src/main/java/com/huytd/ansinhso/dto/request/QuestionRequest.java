@@ -13,15 +13,23 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin câu hỏi cần tạo hoặc cập nhật")
+@Schema(description = "Information for creating or updating a question")
 public class QuestionRequest {
-    @Schema(description = "Nội dung câu hỏi", example = "Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam được thông qua năm nào?", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Nội dung câu hỏi không được để trống")
-    @Size(min = 10, max = 1000, message = "Nội dung câu hỏi phải từ 10-1000 ký tự")
+
+    @Schema(
+            description = "Content of the question",
+            example = "In what year was the Constitution of the Socialist Republic of Vietnam adopted?",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotBlank(message = "Question content must not be empty")
+    @Size(min = 10, max = 1000, message = "Question content must be between 10 and 1000 characters")
     private String content;
 
-    @Schema(description = "Danh sách các đáp án (tối thiểu 2 đáp án)", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "Phải có ít nhất một đáp án")
-    @Size(min = 2, message = "Phải có ít nhất 2 đáp án")
+    @Schema(
+            description = "List of answer options (minimum 2 options required)",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotEmpty(message = "At least one option is required")
+    @Size(min = 2, message = "At least 2 options are required")
     private List<OptionRequest> options;
 }

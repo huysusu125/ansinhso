@@ -1,6 +1,6 @@
-package com.huytd.ansinhso.controller.cms;
+package com.huytd.ansinhso.controller.app;
 
-import com.huytd.ansinhso.dto.request.LoginRequest;
+import com.huytd.ansinhso.dto.request.LoginZaloRequest;
 import com.huytd.ansinhso.dto.request.RefreshTokenRequest;
 import com.huytd.ansinhso.dto.response.ApiResponse;
 import com.huytd.ansinhso.dto.response.LoginResponse;
@@ -16,17 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("cmsAuthController")
-@RequestMapping("/cms-api/auth")
+@RestController("appAuthController")
+@RequestMapping("/app-api/auth")
 @RequiredArgsConstructor
-@Tag(name = "Authentication", description = "APIs for authentication and token management")
+@Tag(name = "Authentication", description = "APIs for authentication with Zalo")
 public class AuthController {
 
     private final AuthService authService;
 
+    @PostMapping("/login")
     @Operation(
-            summary = "User login",
-            description = "Authenticate user with username and password to receive JWT access token and refresh token"
+            summary = "Login with Zalo",
+            description = "Authenticate a user using Zalo login information and return an access token along with user details."
     )
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
@@ -35,23 +36,23 @@ public class AuthController {
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "400",
-                    description = "Invalid credentials or account disabled"
-
+                    description = "Invalid request body or missing required fields"
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized – Zalo authentication failed"
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "500",
                     description = "Internal server error"
             )
     })
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(
+    ResponseEntity<ApiResponse<LoginResponse>> loginWithZalo(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Login credentials",
+                    description = "Login Zalo request token request",
                     required = true
-            )
-            @Valid @RequestBody LoginRequest request) {
-        LoginResponse response = authService.login(request);
-        return ResponseEntity.ok(ApiResponse.success("Login successful", response));
+            ) @Valid @RequestBody LoginZaloRequest loginRequest) {
+        return ResponseEntity.ok(ApiResponse.success(authService.loginWithZalo(loginRequest)));
     }
 
     @Operation(
@@ -80,9 +81,7 @@ public class AuthController {
                     required = true
             )
             @Valid @RequestBody RefreshTokenRequest request) {
-        LoginResponse response = authService.refreshToken(request.getRefreshToken());
+        LoginResponse response = authService.refreshTokenCustomer(request.getRefreshToken());
         return ResponseEntity.ok(ApiResponse.success("Token refreshed successfully", response));
     }
-
-
 }

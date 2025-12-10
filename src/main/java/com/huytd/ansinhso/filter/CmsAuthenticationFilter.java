@@ -60,7 +60,7 @@ public class CmsAuthenticationFilter implements Filter {
         try {
             String token = authHeader.substring(7);
             if (jwtService.isTokenValid(token)) {
-                String username = jwtService.extractUsername(token);
+                String username = jwtService.extractSubject(token);
                 log.info("Valid token for user: {}", username);
                 User user = User.builder()
                         .username(username)

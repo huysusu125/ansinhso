@@ -10,18 +10,30 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin đáp án")
+@Schema(description = "Answer option information")
 public class OptionRequest {
 
-    @Schema(description = "ID của đáp án (A, B, C, D, ...)", example = "A", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "ID đáp án không được để trống")
+    @Schema(
+            description = "ID of the option (A, B, C, D, ...)",
+            example = "A",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotBlank(message = "Option ID must not be empty")
     private String optionId;
 
-    @Schema(description = "Nội dung đáp án", example = "2013", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Nội dung đáp án không được để trống")
+    @Schema(
+            description = "Content of the answer option",
+            example = "2013",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotBlank(message = "Option content must not be empty")
     private String content;
 
-    @Schema(description = "Đáp án có đúng hay không", example = "true", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "Phải xác định đáp án đúng/sai")
+    @Schema(
+            description = "Indicates whether this option is correct",
+            example = "true",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotNull(message = "You must specify whether the option is correct or not")
     private Boolean isCorrect;
 }

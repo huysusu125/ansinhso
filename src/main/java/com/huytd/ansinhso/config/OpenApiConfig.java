@@ -24,13 +24,6 @@ public class OpenApiConfig {
     @Value("${openapi.prod-url:https://api.ansinhso.com}")
     private String prodUrl;
     private static final String SECURITY_SCHEME_NAME = "Bearer Authentication";
-    @Bean
-    public GroupedOpenApi publicApi() {
-        return GroupedOpenApi.builder()
-                .group("Common")
-                .pathsToMatch("/public-api/**")
-                .build();
-    }
 
     @Bean
     public GroupedOpenApi cmsApi() {

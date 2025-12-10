@@ -9,6 +9,5 @@ import org.springframework.context.annotation.Configuration;
 public class ZaloConfig {
     @Value("${zalopay.secret-key:A3H4LxqfI65hDPA3bpHw}")
     private String secretKey;
-
 }
 

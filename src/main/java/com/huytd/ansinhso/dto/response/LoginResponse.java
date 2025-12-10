@@ -1,5 +1,6 @@
 package com.huytd.ansinhso.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,5 +39,9 @@ public class LoginResponse {
         
         @Schema(description = "Username", example = "admin")
         private String username;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @Schema(description = "PhoneNumber only zalo mini app", example = "0987654159")
+        private String phoneNumber;
     }
 }

@@ -112,6 +112,7 @@ public class AuthServiceImpl implements AuthService {
                 .userInfo(LoginResponse.UserInfo.builder()
                         .id(customer.getId())
                         .username(customer.getName())
+                        .phoneNumber(phoneNumber)
                         .build())
                 .build();
     }
@@ -137,6 +138,7 @@ public class AuthServiceImpl implements AuthService {
                 .userInfo(LoginResponse.UserInfo.builder()
                         .id(customer.getId())
                         .username(customer.getName())
+                        .phoneNumber(phoneNumber)
                         .build())
                 .build();
     }

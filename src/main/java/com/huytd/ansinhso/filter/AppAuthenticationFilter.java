@@ -1,6 +1,6 @@
 package com.huytd.ansinhso.filter;
 
-import com.huytd.ansinhso.entity.Customer;
+import com.huytd.ansinhso.entity.User;
 import com.huytd.ansinhso.service.JwtService;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -49,8 +49,8 @@ public class AppAuthenticationFilter implements Filter {
                 if (jwtService.isTokenValid(token)) {
                     String phoneNumber = jwtService.extractSubject(token);
                     log.info("Valid token for customer: {}", phoneNumber);
-                    Customer customer = Customer.builder()
-                            .phoneNumber(phoneNumber)
+                    User customer = User.builder()
+                            .username(phoneNumber)
                             .build();
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(

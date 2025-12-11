@@ -42,4 +42,7 @@ public class FeedbackListResponse {
     @Schema(description = "Feedback time created", example = "123456 ")
     private Timestamp createdAt;
 
+    @Schema(description = "Note of admin process feedback", example = "This feedback is resolve", nullable = true)
+    private String note;
+
 }

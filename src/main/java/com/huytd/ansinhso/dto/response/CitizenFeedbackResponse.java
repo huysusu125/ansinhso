@@ -55,4 +55,7 @@ public class CitizenFeedbackResponse {
     @Schema(description = "List of attachment file URLs",
             example = "[\"https://example.com/file1.jpg\", \"https://example.com/file2.png\"]")
     private List<String> attachmentUrls;
+
+    @Schema(description = "Note of admin process feedback", example = "This feedback is resolve", nullable = true)
+    private String note;
 }

@@ -2,6 +2,8 @@ package com.huytd.ansinhso.controller.cms;
 
 
 import com.huytd.ansinhso.constant.FeedbackStatus;
+import com.huytd.ansinhso.dto.request.RejectFeedback;
+import com.huytd.ansinhso.dto.request.ResolveFeedback;
 import com.huytd.ansinhso.dto.response.ApiResponse;
 import com.huytd.ansinhso.dto.response.CitizenFeedbackResponse;
 import com.huytd.ansinhso.dto.response.FeedbackListResponse;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -114,10 +117,11 @@ public class FeedbackController {
     @PutMapping("/{id}/resolve")
     public ResponseEntity<ApiResponse<CitizenFeedbackResponse>> resolveFeedback(
             @Parameter(description = "Feedback ID", required = true)
-            @PathVariable String id) {
+            @PathVariable String id,
+            @RequestBody ResolveFeedback resolveFeedback) {
 
         return ResponseEntity.ok(ApiResponse.success(
-                feedbackService.resolveFeedback(id)
+                feedbackService.resolveFeedback(id, resolveFeedback)
         ));
     }
 
@@ -132,10 +136,11 @@ public class FeedbackController {
     @PutMapping("/{id}/reject")
     public ResponseEntity<ApiResponse<CitizenFeedbackResponse>> rejectFeedback(
             @Parameter(description = "Feedback ID", required = true)
-            @PathVariable String id) {
+            @PathVariable String id,
+            @RequestBody RejectFeedback rejectFeedback) {
 
         return ResponseEntity.ok(ApiResponse.success(
-                feedbackService.rejectFeedback(id)
+                feedbackService.rejectFeedback(id, rejectFeedback)
         ));
     }
 

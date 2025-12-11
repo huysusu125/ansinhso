@@ -17,6 +17,7 @@ public interface FeedbackMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "note", ignore = true)
     @Mapping(target = "status", constant = "PENDING")
     Feedback toEntity(CitizenFeedbackRequest request);
 

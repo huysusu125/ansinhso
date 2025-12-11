@@ -2,10 +2,11 @@ package com.huytd.ansinhso.service.impl;
 
 import com.huytd.ansinhso.constant.FeedbackStatus;
 import com.huytd.ansinhso.dto.request.CitizenFeedbackRequest;
+import com.huytd.ansinhso.dto.request.RejectFeedback;
+import com.huytd.ansinhso.dto.request.ResolveFeedback;
 import com.huytd.ansinhso.dto.response.CitizenFeedbackResponse;
 import com.huytd.ansinhso.dto.response.FeedbackListResponse;
 import com.huytd.ansinhso.dto.response.ListResponse;
-import com.huytd.ansinhso.entity.Customer;
 import com.huytd.ansinhso.entity.Feedback;
 import com.huytd.ansinhso.entity.FeedbackAttachment;
 import com.huytd.ansinhso.exception.BusinessException;
@@ -104,20 +105,21 @@ public class CitizenFeedbackServiceImpl implements CitizenFeedbackService {
     }
 
     @Override
-    public CitizenFeedbackResponse resolveFeedback(String id) {
+    public CitizenFeedbackResponse resolveFeedback(String id, ResolveFeedback resolveFeedback) {
         Feedback feedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Feedback not found"));
         if (!FeedbackStatus.IN_PROGRESS.equals(feedback.getStatus())) {
             throw new BusinessException("Feedback status is not IN_PROGRESS");
         }
         feedback.setStatus(FeedbackStatus.RESOLVED);
+        feedback.setNote(resolveFeedback.getNote());
         feedbackRepository.save(feedback);
         return enrichCitizenFeedbackResponseWithAttachment(feedback);
     }
 
     @Override
     @Transactional
-    public CitizenFeedbackResponse rejectFeedback(String id) {
+    public CitizenFeedbackResponse rejectFeedback(String id, RejectFeedback rejectFeedback) {
 
         Feedback feedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Feedback not found"));
@@ -125,6 +127,7 @@ public class CitizenFeedbackServiceImpl implements CitizenFeedbackService {
         validateRejection(feedback);
 
         feedback.setStatus(FeedbackStatus.REJECTED);
+        feedback.setNote(rejectFeedback.getNote());
         feedbackRepository.save(feedback);
 
         return enrichCitizenFeedbackResponseWithAttachment(feedback);
@@ -146,7 +149,7 @@ public class CitizenFeedbackServiceImpl implements CitizenFeedbackService {
     @Override
     @Transactional(readOnly = true)
     public ListResponse<FeedbackListResponse> getAllFeedback(Integer page, Integer size) {
-        String phoneNumber = getCustomerSessionZalo();
+        String phoneNumber = SecurityContextHolder.getContext().getAuthentication().getName();
         if (StringUtils.isBlank(phoneNumber)) {
             return ListResponse.of(List.of(), 0L);
         }
@@ -155,19 +158,6 @@ public class CitizenFeedbackServiceImpl implements CitizenFeedbackService {
         );
         Page<Feedback> feedbacks = feedbackRepository.findAllByCreatedBy(phoneNumber, PageRequest.of(page, size, sort));
         return ListResponse.of(feedbackMapper.toFeedbackListResponse(feedbacks.getContent()), feedbacks.getTotalElements());
-    }
-
-    private String getCustomerSessionZalo() {
-        try {
-            Customer customer = (Customer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (customer == null) {
-                return null;
-            }
-            return customer.getPhoneNumber();
-        } catch (Exception e) {
-            log.warn("Cannot get customer from authentication {}", e.getMessage());
-            return null;
-        }
     }
 
 }

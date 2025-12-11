@@ -47,4 +47,7 @@ public class Feedback extends BaseEntity {
     @Column(name = "status")
     private FeedbackStatus status;
 
+    @Column(name = "note")
+    private String note;
+
 }

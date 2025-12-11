@@ -2,6 +2,8 @@ package com.huytd.ansinhso.service;
 
 import com.huytd.ansinhso.constant.FeedbackStatus;
 import com.huytd.ansinhso.dto.request.CitizenFeedbackRequest;
+import com.huytd.ansinhso.dto.request.RejectFeedback;
+import com.huytd.ansinhso.dto.request.ResolveFeedback;
 import com.huytd.ansinhso.dto.response.CitizenFeedbackResponse;
 import com.huytd.ansinhso.dto.response.FeedbackListResponse;
 import com.huytd.ansinhso.dto.response.ListResponse;
@@ -15,9 +17,9 @@ public interface CitizenFeedbackService {
 
     CitizenFeedbackResponse acceptFeedback(String id);
 
-    CitizenFeedbackResponse resolveFeedback(String id);
+    CitizenFeedbackResponse resolveFeedback(String id, ResolveFeedback resolveFeedback);
 
-    CitizenFeedbackResponse rejectFeedback(String id);
+    CitizenFeedbackResponse rejectFeedback(String id, RejectFeedback rejectFeedback);
 
     ListResponse<FeedbackListResponse> getAllFeedback(Integer page, Integer size);
 }

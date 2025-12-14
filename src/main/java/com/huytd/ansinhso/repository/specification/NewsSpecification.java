@@ -1,6 +1,6 @@
 package com.huytd.ansinhso.repository.specification;
 
-import com.huytd.ansinhso.constant.NewsStatus;
+import com.huytd.ansinhso.constant.Status;
 import com.huytd.ansinhso.entity.News;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NewsSpecification {
 
-    public static Specification<News> withFilters(String title, String topicId, NewsStatus status) {
+    public static Specification<News> withFilters(String title, String topicId, Status status) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

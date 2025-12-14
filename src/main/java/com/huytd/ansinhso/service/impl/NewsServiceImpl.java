@@ -1,6 +1,6 @@
 package com.huytd.ansinhso.service.impl;
 
-import com.huytd.ansinhso.constant.NewsStatus;
+import com.huytd.ansinhso.constant.Status;
 import com.huytd.ansinhso.dto.request.CreateNewsRequest;
 import com.huytd.ansinhso.dto.request.UpdateNewsRequest;
 import com.huytd.ansinhso.dto.response.ListResponse;
@@ -130,7 +130,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional(readOnly = true)
-    public ListResponse<NewsListResponse> getAllNews(String title, String topicId, NewsStatus status, Integer page, Integer size) {
+    public ListResponse<NewsListResponse> getAllNews(String title, String topicId, Status status, Integer page, Integer size) {
         Sort sort = Sort.by(
                 Sort.Order.desc("isPinned"),
                 Sort.Order.desc("updatedAt")
@@ -149,11 +149,11 @@ public class NewsServiceImpl implements NewsService {
                         "News not found with id: " + id
                 ));
 
-        if (NewsStatus.PUBLISHED.equals(news.getStatus())) {
+        if (Status.PUBLISHED.equals(news.getStatus())) {
             throw new BusinessException("News is already published");
         }
 
-        news.setStatus(NewsStatus.PUBLISHED);
+        news.setStatus(Status.PUBLISHED);
         if (Objects.isNull(news.getPublishAt())) {
             news.setPublishAt(new Timestamp(System.currentTimeMillis()));
         }
@@ -170,11 +170,11 @@ public class NewsServiceImpl implements NewsService {
                         "News not found with id: " + id
                 ));
 
-        if (NewsStatus.DRAFT.equals(news.getStatus())) {
+        if (Status.DRAFT.equals(news.getStatus())) {
             throw new BusinessException("News is already unpublished");
         }
 
-        news.setStatus(NewsStatus.DRAFT);
+        news.setStatus(Status.DRAFT);
         News unpublishedNews = newsRepository.save(news);
 
         return buildDetailResponse(unpublishedNews);
@@ -223,7 +223,7 @@ public class NewsServiceImpl implements NewsService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "News not found with id: " + id
                 ));
-        if (!NewsStatus.PUBLISHED.equals(news.getStatus())) {
+        if (!Status.PUBLISHED.equals(news.getStatus())) {
             throw new BusinessException("News is not published with id: " + id);
         }
         news.setViews(news.getViews() + 1);
@@ -234,7 +234,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional(readOnly = true)
     public ListResponse<NewsListResponse> getAllNewsPublish(String title, String topicId, Integer page, Integer size) {
-        return this.getAllNews(title, topicId, NewsStatus.PUBLISHED, page, size);
+        return this.getAllNews(title, topicId, Status.PUBLISHED, page, size);
     }
 
     // Helper method: Enrich a news list with topic names

@@ -1,6 +1,6 @@
 package com.huytd.ansinhso.entity;
 
-import com.huytd.ansinhso.constant.NewsStatus;
+import com.huytd.ansinhso.constant.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,7 +43,7 @@ public class News extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     @Builder.Default
-    private NewsStatus status = NewsStatus.DRAFT;
+    private Status status = Status.DRAFT;
 
     @Column(name = "publish_at")
     private Timestamp publishAt;

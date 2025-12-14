@@ -1,6 +1,6 @@
 package com.huytd.ansinhso.controller.cms;
 
-import com.huytd.ansinhso.constant.NewsStatus;
+import com.huytd.ansinhso.constant.Status;
 import com.huytd.ansinhso.dto.request.CreateNewsRequest;
 import com.huytd.ansinhso.dto.request.UpdateNewsRequest;
 import com.huytd.ansinhso.dto.response.ApiResponse;
@@ -107,7 +107,7 @@ public class NewsController {
             @Parameter(description = "Filter by topic ID")
             @RequestParam(required = false) String topicId,
             @Parameter(description = "Filter by status")
-            @RequestParam(required = false) NewsStatus status,
+            @RequestParam(required = false) Status status,
             @Parameter(description = "Page number (0-indexed)")
             @RequestParam(required = false, defaultValue = "0") Integer page,
             @Parameter(description = "Page size")

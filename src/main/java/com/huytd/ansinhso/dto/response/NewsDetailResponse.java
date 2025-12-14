@@ -1,6 +1,6 @@
 package com.huytd.ansinhso.dto.response;
 
-import com.huytd.ansinhso.constant.NewsStatus;
+import com.huytd.ansinhso.constant.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class NewsDetailResponse {
     private boolean isPinned;
 
     @Schema(description = "Status (DRAFT/PUBLISHED)", example = "PUBLISHED")
-    private NewsStatus status;
+    private Status status;
 
     @Schema(description = "Publish time", example = "1764345426000")
     private Timestamp publishAt;

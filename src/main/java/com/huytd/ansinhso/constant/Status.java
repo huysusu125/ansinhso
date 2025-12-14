@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum NewsStatus {
+public enum Status {
 
     DRAFT("DRAFT"),
     PUBLISHED("PUBLISHED"),

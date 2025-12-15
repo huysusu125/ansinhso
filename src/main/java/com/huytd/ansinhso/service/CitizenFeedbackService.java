@@ -5,8 +5,12 @@ import com.huytd.ansinhso.dto.request.CitizenFeedbackRequest;
 import com.huytd.ansinhso.dto.request.RejectFeedback;
 import com.huytd.ansinhso.dto.request.ResolveFeedback;
 import com.huytd.ansinhso.dto.response.CitizenFeedbackResponse;
+import com.huytd.ansinhso.dto.response.FeedbackCategoryCountResponse;
 import com.huytd.ansinhso.dto.response.FeedbackListResponse;
+import com.huytd.ansinhso.dto.response.FeedbackStatusCountResponse;
 import com.huytd.ansinhso.dto.response.ListResponse;
+
+import java.util.List;
 
 public interface CitizenFeedbackService {
     CitizenFeedbackResponse submitFeedback(CitizenFeedbackRequest request);
@@ -22,4 +26,9 @@ public interface CitizenFeedbackService {
     CitizenFeedbackResponse rejectFeedback(String id, RejectFeedback rejectFeedback);
 
     ListResponse<FeedbackListResponse> getAllFeedback(Integer page, Integer size);
+
+    List<FeedbackStatusCountResponse> countFeedbackByStatus();
+
+    List<FeedbackCategoryCountResponse> countByCategory();
+
 }

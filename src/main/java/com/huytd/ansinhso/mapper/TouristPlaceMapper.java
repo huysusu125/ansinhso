@@ -22,6 +22,7 @@ public interface TouristPlaceMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "views", ignore = true)
     @Mapping(target = "status", defaultValue = "DRAFT")
     TouristPlace toEntity(CreateTouristPlaceRequest request);
 
@@ -46,6 +47,7 @@ public interface TouristPlaceMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "views", ignore = true)
     void updateEntityFromRequest(CreateTouristPlaceRequest request, @MappingTarget TouristPlace entity);
 }
 

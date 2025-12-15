@@ -10,6 +10,8 @@ import java.util.List;
 public interface NewsRepository extends JpaRepository<News, String>, JpaSpecificationExecutor<News> {
     boolean existsByTopicId(String topicId);
 
+    List<News> findTop10ByOrderByViewsDescUpdatedAtDesc();
+
     List<News> findByTopicId(String topicId);
 
     @Query("SELECT n FROM News n ORDER BY n.isPinned DESC, n.createdAt DESC")

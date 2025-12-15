@@ -5,7 +5,9 @@ import com.huytd.ansinhso.dto.request.CitizenFeedbackRequest;
 import com.huytd.ansinhso.dto.request.RejectFeedback;
 import com.huytd.ansinhso.dto.request.ResolveFeedback;
 import com.huytd.ansinhso.dto.response.CitizenFeedbackResponse;
+import com.huytd.ansinhso.dto.response.FeedbackCategoryCountResponse;
 import com.huytd.ansinhso.dto.response.FeedbackListResponse;
+import com.huytd.ansinhso.dto.response.FeedbackStatusCountResponse;
 import com.huytd.ansinhso.dto.response.ListResponse;
 import com.huytd.ansinhso.entity.Feedback;
 import com.huytd.ansinhso.entity.FeedbackAttachment;
@@ -28,7 +30,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -158,6 +163,30 @@ public class CitizenFeedbackServiceImpl implements CitizenFeedbackService {
         );
         Page<Feedback> feedbacks = feedbackRepository.findAllByCreatedBy(phoneNumber, PageRequest.of(page, size, sort));
         return ListResponse.of(feedbackMapper.toFeedbackListResponse(feedbacks.getContent()), feedbacks.getTotalElements());
+    }
+
+    @Override
+    public List<FeedbackStatusCountResponse> countFeedbackByStatus() {
+        List<FeedbackStatusCountResponse> dbResult =
+                feedbackRepository.countByStatus();
+
+        Map<FeedbackStatus, Long> countMap = dbResult.stream()
+                .collect(Collectors.toMap(
+                        FeedbackStatusCountResponse::getStatus,
+                        FeedbackStatusCountResponse::getTotal
+                ));
+
+        return Arrays.stream(FeedbackStatus.values())
+                .map(status -> new FeedbackStatusCountResponse(
+                        status,
+                        countMap.getOrDefault(status, 0L)
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<FeedbackCategoryCountResponse> countByCategory() {
+        return feedbackRepository.countByCategory();
     }
 
 }

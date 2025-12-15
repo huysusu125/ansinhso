@@ -2,6 +2,7 @@ package com.huytd.ansinhso.service;
 
 import com.huytd.ansinhso.constant.Status;
 import com.huytd.ansinhso.dto.request.CreateTouristPlaceRequest;
+import com.huytd.ansinhso.dto.response.LocationTopView;
 import com.huytd.ansinhso.dto.response.TouristPlaceResponse;
 import com.huytd.ansinhso.entity.TouristPlace;
 import com.huytd.ansinhso.exception.ResourceNotFoundException;
@@ -88,5 +89,17 @@ public class TouristPlaceService {
     public List<TouristPlaceResponse> getAllPublishedTouristPlaces() {
         List<TouristPlace> places = repository.findAllByStatusOrderByCreatedAtDesc(Status.PUBLISHED);
         return mapper.toResponseList(places);
+    }
+
+    public List<LocationTopView> getTop10Viewed() {
+        return repository.findTop10ByOrderByViewsDescUpdatedAtDesc()
+                .stream()
+                .map(location -> LocationTopView
+                        .builder()
+                        .displayName(location.getDisplayName())
+                        .category(location.getCategory())
+                        .views(location.getViews())
+                        .build())
+                .toList();
     }
 }

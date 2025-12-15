@@ -51,4 +51,5 @@ public class News extends BaseEntity {
     @Column(name = "views")
     @Builder.Default
     private Long views = 0L;
+
 }

@@ -7,6 +7,8 @@ import com.huytd.ansinhso.dto.response.ListResponse;
 import com.huytd.ansinhso.dto.response.NewsDetailResponse;
 import com.huytd.ansinhso.dto.response.NewsListResponse;
 
+import java.util.List;
+
 public interface NewsService {
     NewsDetailResponse createNews(CreateNewsRequest request);
     NewsDetailResponse updateNews(String id, UpdateNewsRequest request);
@@ -20,4 +22,7 @@ public interface NewsService {
     NewsDetailResponse getNewsPublishById(String id);
 
     ListResponse<NewsListResponse> getAllNewsPublish(String title, String topicId, Integer page, Integer size);
+
+    List<NewsListResponse> getTop10Viewed();
+
 }

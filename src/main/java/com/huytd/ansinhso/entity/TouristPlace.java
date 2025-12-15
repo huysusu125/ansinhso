@@ -65,4 +65,8 @@ public class TouristPlace extends BaseEntity {
     @Column(name = "photos")
     @Convert(converter = StringListConverter.class)
     private List<String> photos;
+
+    @Column(name = "views")
+    @Builder.Default
+    private Long views = 0L;
 }

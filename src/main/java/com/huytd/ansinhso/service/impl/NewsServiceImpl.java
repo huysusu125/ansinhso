@@ -237,6 +237,11 @@ public class NewsServiceImpl implements NewsService {
         return this.getAllNews(title, topicId, Status.PUBLISHED, page, size);
     }
 
+    @Override
+    public List<NewsListResponse> getTop10Viewed() {
+        return enrichWithTopicNames(newsRepository.findTop10ByOrderByViewsDescUpdatedAtDesc());
+    }
+
     // Helper method: Enrich a news list with topic names
     private List<NewsListResponse> enrichWithTopicNames(List<News> newsList) {
         if (newsList.isEmpty()) {

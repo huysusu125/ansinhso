@@ -17,4 +17,6 @@ public interface TouristPlaceRepository extends JpaRepository<TouristPlace, Stri
     List<TouristPlace> findAllByStatusOrderByCreatedAtDesc(Status status);
 
 
+    List<TouristPlace> findTop10ByOrderByViewsDescUpdatedAtDesc();
+
 }

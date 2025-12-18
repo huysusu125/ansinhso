@@ -3,7 +3,6 @@ package com.huytd.ansinhso.controller.cms;
 import com.huytd.ansinhso.dto.request.QuestionRequest;
 import com.huytd.ansinhso.dto.response.ApiResponse;
 import com.huytd.ansinhso.dto.response.ListResponse;
-import com.huytd.ansinhso.dto.response.QuestionListResponse;
 import com.huytd.ansinhso.dto.response.QuestionResponse;
 import com.huytd.ansinhso.service.QuestionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,10 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("cmsQuestionController")
 @RequestMapping("/cms-api/questions")
 @RequiredArgsConstructor
 @Tag(name = "Question Management", description = "APIs for managing legal quiz questions")
@@ -135,37 +133,8 @@ public class QuestionController {
     }
 
     @Operation(
-            summary = "Get question details",
-            description = "Get detailed information of a question including all options"
-    )
-    @io.swagger.v3.oas.annotations.responses.ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                    responseCode = "200",
-                    description = "Question retrieved successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = QuestionResponse.class)
-                    )
-            ),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                    responseCode = "404",
-                    description = "Question not found",
-                    content = @Content(mediaType = "application/json")
-            )
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<QuestionResponse>> getQuestionById(
-            @Parameter(description = "Question ID to retrieve", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
-            @PathVariable String id) {
-
-        QuestionResponse response = questionService.getQuestionById(id);
-        return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    @Operation(
             summary = "Get list of questions",
-            description = "Get list of questions with filtering, searching, pagination and sorting options. " +
-                    "Supports filtering by tags and searching by question content."
+            description = "Get list of questions"
     )
     @io.swagger.v3.oas.annotations.responses.ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
@@ -179,11 +148,9 @@ public class QuestionController {
             )
     })
     @GetMapping
-    public ResponseEntity<ApiResponse<ListResponse<QuestionListResponse>>> getQuestions(
-            @Parameter(description = "Search by question content", example = "Constitution")
-            @RequestParam(required = false) String search) {
+    public ResponseEntity<ApiResponse<ListResponse<QuestionResponse>>> getQuestions() {
 
-        ListResponse<QuestionListResponse> response = questionService.getQuestions(search);
+        ListResponse<QuestionResponse> response = questionService.getQuestions();
 
         return ResponseEntity.ok(ApiResponse.success(response));
     }

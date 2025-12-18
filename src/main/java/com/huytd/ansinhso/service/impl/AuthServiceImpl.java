@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.expiration:7200}")
     private Long jwtExpiration;
 
     private final UserRepository userRepository;

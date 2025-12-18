@@ -28,5 +28,5 @@ public class QuestionOption extends BaseEntity {
     private String content;
 
     @Column(name = "is_correct")
-    private boolean isCorrect = false;
+    private Boolean isCorrect = false;
 }

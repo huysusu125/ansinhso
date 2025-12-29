@@ -44,6 +44,15 @@ public class TouristPlaceService {
         return mapper.toResponse(place);
     }
 
+    public TouristPlaceResponse getTouristPlaceApp(String id) {
+        log.info("Fetching tourist place with ID: {}", id);
+        TouristPlace place = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tourist place not found with id: " + id));
+        place.setViews(place.getViews() + 1);
+        repository.save(place);
+        return mapper.toResponse(place);
+    }
+
     public List<TouristPlaceResponse> getAllTouristPlaces() {
         log.info("Fetching all tourist places");
         List<TouristPlace> places = repository.findAll();

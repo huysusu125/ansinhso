@@ -63,7 +63,7 @@ public class TouristPlaceController {
 
         log.info("GET /api/v1/tourist-places/{} - Fetching tourist place", id);
 
-        TouristPlaceResponse response = service.getTouristPlace(id);
+        TouristPlaceResponse response = service.getTouristPlaceApp(id);
 
         return ResponseEntity.ok(
                 ApiResponse.success("Tourist place retrieved successfully", response));
